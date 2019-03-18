@@ -22,7 +22,33 @@ $(document).ready(function(){
     //# Get Input
     $input = $terminalIn.val();
     //# Display Output
-    $terminalOut.append(printCmd($input));
+    if($input.startsWith("subscribe ")){
+      // Now check if only one command
+      var args = $input.split(" ");
+      if(args.length > 2){
+        // TOO MANY ARGUMENTS
+        $terminalOut.append(printCmd($input,null, "Too many arguments. Usage: subscribe [email address]"));
+      }
+      else{
+        //Proper length!
+        if(validateEmail(args[1])){
+          //THEN WE GOOD so print subscribed!
+          $terminalOut.append(printCmd($input,null, null));
+          $terminalOut.append(printCmd($input, "Successfully subscribed, " + args[1] + "! Check your email", null));
+        }
+        else{
+          //Not valid email
+          $terminalOut.append(printCmd($input,null, null));
+          $terminalOut.append(printCmd($input,null, "Email address invalid, please enter a valid email address"));
+        }
+
+      }
+    }
+    else{
+      $terminalOut.append(printCmd($input,null, null));
+      $terminalOut.append(printCmd($input,null, "Unknown command. Usage: subscribe [email address]"));
+    }
+
     //# Clear Input
     $terminalIn.val("");
     //# Keep focused on input
@@ -31,11 +57,38 @@ $(document).ready(function(){
       100: 100 });
 
   });
+  //Email validation simple!
+  function validateEmail(email)
+  {
+      var re = /\S+@\S+\.\S+/;
+      return re.test(email);
+  }
 
   //# Template for cmd line print
-  printCmd = function ($input) {
-    return `<div class='cmd-container'> <span class='path'> <i class='blue'>~ / </i> <i class='red'>❯</i> <i class='yellow'>❯</i> <i class='green'>❯</i> </span> <span class='eval'>${$input}</span> </div>`;
+  printCmd = function ($input, message, error) {
+    if(error != null){
+      //Error message
+      return `<div class='cmd-container'>
+      <span class="eval"><span>${error}</i></span> </div>`;
+
+    }
+    else if(message == null){
+      //No error message thus, just return default
+      return `<div class='cmd-container'>
+      <span class="path"><i class="red">  ~ /
+        ❯
+        ❯</i>
+    </span><span class='eval'>${$input}</span> </div>`;
+    }
+    else{
+      //otherwise only print IN GREEN CAUSE VALID!
+      return `<div class='cmd-container'>
+      <span class="eval"><span style="color: green">${message}</span></span> </div>`;
+    }
+
   };
+
+
 
   //# Focus to input on window click
   $window.on('click', function (e) {
