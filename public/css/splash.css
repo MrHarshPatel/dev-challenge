@@ -1,8 +1,12 @@
 #main{
-  background-color:white;
+  background-color:black;
   background-position: bottom center;
   background-size: 85%;
   background-repeat: no-repeat;
+}
+
+html{
+  color:red;
 }
 
 .container {
