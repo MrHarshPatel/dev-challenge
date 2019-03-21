@@ -32,9 +32,23 @@ $(document).ready(function(){
       else{
         //Proper length!
         if(validateEmail(args[1])){
-          //THEN WE GOOD so print subscribed!
+          //THEN WE GOOD so print subscribed
+          $.ajax({
+            type: "POST",
+            url: "/",
+            data: JSON.stringify({address: args[1]}),
+            dataType: "text",
+            contentType: "application/json",
+            success: function(response, textStatus, jqXHR){
+                $terminalOut.append(printCmd($input, "Successfully subscribed, " + args[1] + "! Check your email", null));
+            },
+            error: function(jqXhr, textStatus, errorMessage){
+              console.log("Error: ", errorMessage);
+           }
+
+          }); //Send post request with ajax/jquery
           $terminalOut.append(printCmd($input,null, null));
-          $terminalOut.append(printCmd($input, "Successfully subscribed, " + args[1] + "! Check your email", null));
+
         }
         else{
           //Not valid email

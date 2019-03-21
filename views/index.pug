@@ -4,7 +4,6 @@ head
   script(src="https://cdnjs.cloudflare.com/ajax/libs/three.js/100/three.min.js")
   script(src="/js/vanta.birds.js")
   script(src="/js/splash.js")
-  //- link(rel="stylesheet" href="/css/bulma.min.css")
   link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css")
   link(rel="stylesheet" href="/css/splash.css")
 body#main
@@ -80,16 +79,22 @@ body#main
                | ~ / 
                | ❯ 
                | ❯ 
-            form
-              input#cmd(autofocus=true autocomplete="off" tabIndex=1)
-                
+            form(id="inputForm" method="post" action="/")
+              input#cmd(type="text" name="command" autofocus=true value="subscribe " onfocus="this.setSelectionRange(this.value.length,this.value.length);" autocomplete="off" tabIndex=1)
   div.center
     footer.footer
       .content.has-text-centered
         p(class="large text")
           span(style="font-size: 3em; color: white;")
-            i(class="link fab fa-facebook-square-3x") 
-            i(class="link fab fa-twitter-square") 
-            i(class="link fab fa-instagram") 
-            i(class="link fab fa-github-square") 
-            i(class="link fab fa-medium") 
+            a(class="aLink" href="https://fb.com/HckMcGll")
+              i(class="link fab fa-facebook-square") 
+            a(class="aLink" href="https://twitter.com/mcgillhacks")
+              i(class="link fab fa-twitter-square")
+            a(class="aLink" href="https://instagram.com/mcgillhacks")
+              i(class="link fab fa-instagram") 
+            a(class="aLink" href="https://github.com/hackmcgill")
+              i(class="link fab fa-github-square") 
+            a(class="aLink" href="https://medium.com/@hackmcgill")
+              i(class="link fab fa-medium") 
+            a(class="aLink" href="mailto:contact@mchacks.ca")
+              i(class="link fas fa-envelope-square") 
